@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weight Loss Planner</title>
+  <style>
+    /* CSS Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    input[type="date"] {
+      padding: 5px;
+      font-size: 16px;
+    }
+    .result {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Weight Loss Planner</h1>
+    <form id="dateForm">
+      <label for="dateInput">Select a date:</label>
+      <input type="date" id="dateInput" required>
+      <button type="submit">Get Plan</button>
+    </form>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    // JavaScript Logic
+    const dateForm = document.getElementById('dateForm');
+    const resultDiv = document.getElementById('result');
+
+    dateForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const dateInput = document.getElementById('dateInput').value;
+      const selectedDate = new Date(dateInput);
+      const currentDate = new Date('2023-06-19'); // Adjust the starting date here
+
+      // Calculate the number of days between the selected date and the starting date
+      const daysDiff = Math.floor((selectedDate - currentDate) / (1000 * 60 * 60 * 24));
+
+      // Define the nutrition and exercise plan for each day
+      const nutritionPlan = [
+        // Replace with your actual nutrition plan for each day starting from June 19, 2023
+        "Day 1: Balanced meals with portion control. Try a new healthy recipe.",
+        "Day 2: Incorporate more fruits and vegetables into your meals. Stay hydrated.",
+        "Day 3: Focus on lean proteins and whole grains. Avoid sugary snacks.",
+        // ...
+      ];
+
+      const exercisePlan = [
+        // Replace with your actual exercise plan for each day starting from June 19, 2023
+        "Day 1: 30 minutes of brisk walking.",
+        "Day 2: 40 minutes of cardiovascular exercise. Strength training.",
+        "Day 3: Rest day.",
+        // ...
+      ];
+
+      // Check if the selected date falls within the available plan range
+      if (daysDiff >= 0 && daysDiff < nutritionPlan.length) {
+        const nutritionInfo = nutritionPlan[daysDiff];
+        const exerciseInfo = exercisePlan[daysDiff];
+        resultDiv.innerHTML = `
+          <h2>Nutrition and Exercise Plan for ${selectedDate.toDateString()}:</h2>
+          <p><strong>Nutrition:</strong> ${nutritionInfo}</p>
+          <p><strong>Exercise:</strong> ${exerciseInfo}</p>
+        `;
+      } else {
+        resultDiv.innerHTML = "<p>No plan available for the selected date.</p>";
+      }
+    });
+  </script>
+</body>
+</html>
